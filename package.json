@@ -1,17 +1,23 @@
 {
-  "name": "monorepo",
+  "name": "web",
   "version": "0.0.0",
-  "private": true,
+  "type": "module",
   "scripts": {
-    "dev": "concurrently --kill-others --raw \"npm run dev --prefix apps/web\"",
-    "build": "concurrently --raw \"npm run build --prefix apps/web\"",
-    "start": "concurrently --kill-others --raw",
-    "lint": "concurrently --raw \"npm run lint --prefix apps/web\""
+  "dev": "vite --host :: --port 3000",
+  "build": "node tools/generate-llms.js || true && vite build --outDir ../../dist/apps/web",
+  "start": "vite preview --outDir ../../dist/apps/web --host :: --port 3000",
+  "lint": "eslint . --quiet",
+  "lint:warn": "eslint .",
+  "deploy": "gh-pages -d ../../dist/apps/web"
+},
+  "dependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
-    "concurrently": "^10.0.3"
+    "vite": "^6.0.0",
+    "@vitejs/plugin-react": "^4.0.0",
+    "gh-pages": "^6.3.0"
   },
-  "workspaces": [
-    "apps/*"
-  ]
+  "homepage": "https://Saine936.github.io/BuiltByPrevail/"
 }

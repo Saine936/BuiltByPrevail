@@ -110,8 +110,7 @@ function HomePage() {
 
       <section className="relative min-h-[100dvh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <img src="horizons-export-cfda2f16-5e23-43ad-a22b-81b2c9c74bdf/images/builtbyprevail.png"
-            alt="Modern workspace with laptop and design tools"
+          <img src="/images/builtbyprevail.png" alt="Built by Prevail"
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/50" />

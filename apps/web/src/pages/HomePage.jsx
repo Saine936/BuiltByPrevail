@@ -110,7 +110,7 @@ function HomePage() {
 
       <section className="relative min-h-[100dvh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <img src="/images/builtbyprevail.png"
+          <img src="horizons-export-cfda2f16-5e23-43ad-a22b-81b2c9c74bdf/images/builtbyprevail.png"
             alt="Modern workspace with laptop and design tools"
             className="w-full h-full object-cover"
           />

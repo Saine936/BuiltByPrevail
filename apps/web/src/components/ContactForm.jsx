@@ -1,65 +1,91 @@
 import React, { useState } from 'react';
+import { Loader2 } from 'lucide-react';
+import { toast } from 'sonner';
+
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
-import { toast } from 'sonner';
-import { Loader2 } from 'lucide-react';
+import { Textarea } from '@/components/ui/textarea';
 
 function ContactForm() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
-    message: ''
+    message: '',
   });
+
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+
+    setFormData((previousData) => ({
+      ...previousData,
+      [name]: value,
+    }));
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    
-    if (!formData.name || !formData.email || !formData.message) {
-      toast.error('Please fill in all required fields');
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    const name = formData.name.trim();
+    const email = formData.email.trim();
+    const phone = formData.phone.trim();
+    const message = formData.message.trim();
+
+    if (!name || !email || !message) {
+      toast.error('Please fill in all required fields.');
       return;
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(formData.email)) {
-      toast.error('Please enter a valid email address');
+
+    if (!emailRegex.test(email)) {
+      toast.error('Please enter a valid email address.');
       return;
     }
 
     setIsSubmitting(true);
 
     try {
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          phone,
+          message,
+        }),
+      });
 
-      const submission = {
-        ...formData,
-        timestamp: new Date().toISOString()
-      };
+      const result = await response.json();
 
-      const existingSubmissions = JSON.parse(localStorage.getItem('contactSubmissions') || '[]');
-      existingSubmissions.push(submission);
-      localStorage.setItem('contactSubmissions', JSON.stringify(existingSubmissions));
+      if (!response.ok) {
+        throw new Error(
+          result.message || 'The message could not be sent.'
+        );
+      }
 
-      toast.success('Message sent successfully. We will get back to you soon.');
-      
+      toast.success(
+        'Message sent successfully. We will get back to you soon.'
+      );
+
       setFormData({
         name: '',
         email: '',
         phone: '',
-        message: ''
+        message: '',
       });
     } catch (error) {
-      toast.error('Failed to send message. Please try again.');
+      console.error('Contact form submission error:', error);
+
+      toast.error(
+        error.message || 'Failed to send message. Please try again.'
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -68,7 +94,10 @@ function ContactForm() {
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <div>
-        <Label htmlFor="name" className="text-foreground">Name *</Label>
+        <Label htmlFor="name" className="text-foreground">
+          Name *
+        </Label>
+
         <Input
           id="name"
           name="name"
@@ -76,13 +105,17 @@ function ContactForm() {
           value={formData.name}
           onChange={handleChange}
           required
+          autoComplete="name"
           className="mt-2 text-foreground placeholder:text-muted-foreground"
           placeholder="Your full name"
         />
       </div>
 
       <div>
-        <Label htmlFor="email" className="text-foreground">Email *</Label>
+        <Label htmlFor="email" className="text-foreground">
+          Email *
+        </Label>
+
         <Input
           id="email"
           name="email"
@@ -90,26 +123,34 @@ function ContactForm() {
           value={formData.email}
           onChange={handleChange}
           required
+          autoComplete="email"
           className="mt-2 text-foreground placeholder:text-muted-foreground"
           placeholder="your.email@example.com"
         />
       </div>
 
       <div>
-        <Label htmlFor="phone" className="text-foreground">Phone</Label>
+        <Label htmlFor="phone" className="text-foreground">
+          Phone
+        </Label>
+
         <Input
           id="phone"
           name="phone"
           type="tel"
           value={formData.phone}
           onChange={handleChange}
+          autoComplete="tel"
           className="mt-2 text-foreground placeholder:text-muted-foreground"
-          placeholder="(555) 123-4567"
+          placeholder="(613) 123-4567"
         />
       </div>
 
       <div>
-        <Label htmlFor="message" className="text-foreground">Message *</Label>
+        <Label htmlFor="message" className="text-foreground">
+          Message *
+        </Label>
+
         <Textarea
           id="message"
           name="message"

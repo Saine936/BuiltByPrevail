@@ -17,8 +17,8 @@ function ContactPage() {
     {
       icon: Phone,
       title: 'Phone',
-      content: '(555) 123-4567',
-      link: 'tel:+15551234567'
+      content: '(613) 240-2545',
+      link: 'tel:+16132402545'
     },
     {
       icon: MapPin,

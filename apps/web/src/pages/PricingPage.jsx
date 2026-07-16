@@ -17,7 +17,7 @@ function PricingPage() {
   const pricingTiers = [
     {
       tier: 'Starter Website',
-      price: '1,497',
+      price: '500',
       period: 'one-time',
       features: [
         'Up to 5 pages',
@@ -26,48 +26,11 @@ function PricingPage() {
         'Basic SEO setup',
         'Social media integration',
         '30 days of support',
-        'Free hosting for 1 year'
+        `Free hosting`,
       ],
       cta: 'Get Started',
       isPopular: false
     },
-    {
-      tier: 'Business Website',
-      price: '2,997',
-      period: 'one-time',
-      features: [
-        'Up to 10 pages',
-        'Custom design',
-        'Advanced SEO optimization',
-        'Google Business Profile setup',
-        'Blog functionality',
-        'Contact forms & CTAs',
-        '90 days of support',
-        'Free hosting for 1 year',
-        'Speed optimization'
-      ],
-      cta: 'Get Started',
-      isPopular: true
-    },
-    {
-      tier: 'Premium Growth Package',
-      price: '4,997',
-      period: 'one-time',
-      features: [
-        'Unlimited pages',
-        'Premium custom design',
-        'E-commerce or booking system',
-        'Advanced SEO & local optimization',
-        'Content creation (up to 10 pages)',
-        'Email marketing integration',
-        '6 months of support',
-        'Free hosting for 2 years',
-        'Priority support',
-        'Monthly performance reports'
-      ],
-      cta: 'Get Started',
-      isPopular: false
-    }
   ];
 
   const faqs = [
@@ -87,13 +50,10 @@ function PricingPage() {
       question: 'Do I own the website after it is built?',
       answer: 'Yes, you own 100% of your website, including all design files, content, and code. We provide full ownership and access to all website assets upon final payment.'
     },
-    {
-      question: 'What happens after the website is launched?',
-      answer: 'We provide training on how to update your website, ongoing support based on your package, and optional maintenance plans to keep your site secure and up-to-date.'
-    },
+    
     {
       question: 'Can you help with website hosting?',
-      answer: 'Yes, we include free hosting for the first year (or two years with the Premium package). After that, hosting is available for a small monthly fee, or you can host it yourself.'
+      answer: 'Yes, we include free hosting.'
     }
   ];
 
